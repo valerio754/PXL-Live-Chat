@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PXL-Live Chat</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: #f8fafc; margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        header { background: #1e293b; padding: 1rem; text-align: center; border-bottom: 2px solid #3b82f6; }
+        #chat-log { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+        .msg { padding: 0.8rem 1rem; border-radius: 12px; max-width: 80%; word-wrap: break-word; }
+        .user-msg { background: #3b82f6; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .sys-msg { background: #334155; align-self: center; font-size: 0.85rem; color: #94a3b8; }
+        .input-area { background: #1e293b; padding: 1.2rem; display: flex; gap: 0.8rem; }
+        input { flex: 1; padding: 0.8rem; border: none; border-radius: 8px; background: #334155; color: white; }
+        button { padding: 0.8rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #2563eb; }
+    </style>
+</head>
+<body>
+    <header><h1>🚀 PXL-Live Chat</h1></header>
+    <div id="chat-log"></div>
+    <div class="input-area">
+        <input type="text" id="msgInput" placeholder="Escribe un mensaje colaborativo..." onkeypress="if(event.key==='Enter') send()">
+        <button onclick="send()">Enviar</button>
+    </div>
+    <script>
+        const log = document.getElementById('chat-log');
+        const socket = new WebSocket('ws://localhost:8000/ws');
+
+        socket.onmessage = (e) => {
+            const div = document.createElement('div');
+            div.className = e.data.includes('📢') || e.data.includes('🚪') ? 'msg sys-msg' : 'msg user-msg';
+            div.textContent = e.data;
+            log.appendChild(div);
+            log.scrollTop = log.scrollHeight;
+        };
+
+        function send() {
+            const input = document.getElementById('msgInput');
+            if(input.value.trim()) { socket.send(input.value); input.value = ''; }
+        }
+    </script>
+</body>
+</html>
