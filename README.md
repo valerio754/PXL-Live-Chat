@@ -1,6 +1,6 @@
 # PXL-Live | Sistema de Chat Colaborativo en Tiempo Real
 
-## 📌 Descripción General
+##  Descripción General
 
 PXL-Live es una aplicación web SPA (Single Page Application) desarrollada para permitir la comunicación colaborativa en tiempo real entre múltiples usuarios mediante el protocolo WebSocket.
 
@@ -16,13 +16,13 @@ La aplicación permite:
 
 ---
 
-# 🎯 Objetivo del Proyecto
+#  Objetivo del Proyecto
 
 Desarrollar una funcionalidad básica de chat colaborativo en tiempo real entre múltiples usuarios utilizando exclusivamente WebSocket como mecanismo de comunicación persistente entre cliente y servidor.
 
 ---
 
-# 👁️ Visión del Sistema
+#  Visión del Sistema
 
 Construir un sistema colaborativo que permita a los empleados de una empresa comunicarse en tiempo real mediante una aplicación web SPA utilizando WebSockets para mensajería instantánea, administrado por una API interna y respaldado por una base de datos local.
 
@@ -30,7 +30,7 @@ El sistema utiliza un servicio de identidad externo mediante Google Login para a
 
 ---
 
-# 🛠️ Tecnologías Utilizadas
+#  Tecnologías Utilizadas
 
 ## Backend
 - Python 3
@@ -53,7 +53,7 @@ El sistema utiliza un servicio de identidad externo mediante Google Login para a
 
 ---
 
-# 🧱 Arquitectura del Sistema
+#  Arquitectura del Sistema
 
 El sistema utiliza una arquitectura Cliente-Servidor.
 
@@ -80,7 +80,7 @@ SQLite almacena:
 
 ---
 
-# 📋 Requerimientos Funcionales
+#  Requerimientos Funcionales
 
 | Código | Requerimiento |
 |---|---|
@@ -97,7 +97,7 @@ SQLite almacena:
 
 ---
 
-# ⚙️ Requerimientos No Funcionales
+#  Requerimientos No Funcionales
 
 | Código | Requerimiento |
 |---|---|
@@ -110,7 +110,7 @@ SQLite almacena:
 
 ---
 
-# 📚 Historias de Usuario Implementadas
+#  Historias de Usuario Implementadas
 
 ---
 
@@ -206,7 +206,7 @@ Como docente, quiero ejecutar el proyecto fácilmente.
 
 ---
 
-# 📂 Estructura del Proyecto
+#  Estructura del Proyecto
 
 ```bash
 PXL-LIVE-CHAT/
