@@ -1,101 +1,71 @@
-import sqlite3
-import json
-import random
+import sqlite3, json, os, uvicorn
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.staticfiles import StaticFiles
 from datetime import datetime
-from typing import List
 
 app = FastAPI()
 
-# --- INICIALIZACIÓN DE BASE DE DATOS (HU06) ---
+# Servir el frontend correctamente
+if os.path.exists("frontend"):
+    app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+
+# Base de Datos Interna
 def init_db():
     conn = sqlite3.connect("pxl_chat.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS messages (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
-            content TEXT,
-            timestamp TEXT
-        )
-    """)
+    conn.execute("CREATE TABLE IF NOT EXISTS messages (username TEXT, content TEXT, timestamp TEXT, date TEXT)")
     conn.commit()
     conn.close()
 
 init_db()
 
-# --- GESTOR DE CONEXIONES ---
 class ConnectionManager:
     def __init__(self):
-        self.active_connections: List[WebSocket] = []
+        self.active_connections: list[WebSocket] = []
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
 
     def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
+        if websocket in self.active_connections:
+            self.active_connections.remove(websocket)
 
     async def broadcast(self, message: dict):
         for connection in self.active_connections:
-            await connection.send_json(message)
+            try: await connection.send_json(message)
+            except: pass
 
 manager = ConnectionManager()
 
-@app.websocket("/ws/{client_name}")
-async def websocket_endpoint(websocket: WebSocket, client_name: str):
+@app.websocket("/ws/{user}")
+async def websocket_endpoint(websocket: WebSocket, user: str):
     await manager.connect(websocket)
     
-    # Cargar Historial de la Base de Datos al entrar
+    # Cargar historial de la conversacion
     conn = sqlite3.connect("pxl_chat.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT username, content, timestamp FROM messages ORDER BY id ASC LIMIT 50")
+    cursor = conn.execute("SELECT username, content, timestamp, date FROM messages ORDER BY rowid ASC")
     for row in cursor.fetchall():
-        await websocket.send_json({
-            "user": row[0], 
-            "msg": row[1], 
-            "time": row[2], 
-            "type": "chat"
-        })
+        await websocket.send_json({"user": row[0], "msg": row[1], "time": row[2], "date": row[3], "type": "chat"})
     conn.close()
 
-    # Notificación de entrada (Limpia)
-    join_time = datetime.now().strftime("%H:%M")
-    await manager.broadcast({
-        "user": "", 
-        "msg": f"📢 {client_name} se ha unido al chat", 
-        "time": join_time, 
-        "type": "sys"
-    })
+    # Mensaje de entrada al chat
+    await manager.broadcast({"msg": f"📢 {user} se ha unido a la sesión", "type": "sys"})
 
     try:
         while True:
-            # Recibir mensaje del cliente
             data = await websocket.receive_text()
-            current_time = datetime.now().strftime("%H:%M")
+            now = datetime.now()
+            t, d = now.strftime("%H:%M"), now.strftime("%Y-%m-%d")
             
-            # Guardar en Base de Datos (Persistencia)
             conn = sqlite3.connect("pxl_chat.db")
-            cursor = conn.cursor()
-            cursor.execute("INSERT INTO messages (username, content, timestamp) VALUES (?, ?, ?)",
-                           (client_name, data, current_time))
+            conn.execute("INSERT INTO messages VALUES (?, ?, ?, ?)", (user, data, t, d))
             conn.commit()
             conn.close()
 
-            # Enviar a todos
-            await manager.broadcast({
-                "user": client_name, 
-                "msg": data, 
-                "time": current_time, 
-                "type": "chat"
-            })
-            
+            await manager.broadcast({"user": user, "msg": data, "time": t, "date": d, "type": "chat"})
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        exit_time = datetime.now().strftime("%H:%M")
-        await manager.broadcast({
-            "user": "", 
-            "msg": f"🚪 {client_name} ha salido", 
-            "time": exit_time, 
-            "type": "sys"
-        })
+        await manager.broadcast({"msg": f"🚪 {user} ha abandonado la sesión", "type": "sys"})
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -2,229 +2,133 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PXL-Live Chat Colaborativo</title>
+    <title>PXL-Live | Sistema Colaborativo</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root {
-            --bg-body: #0f172a;
-            --bg-panel: #1e293b;
-            --my-msg-color: #2563eb;
-            --other-msg-color: #334155;
-            --text-main: #f8fafc;
-            --accent: #3b82f6;
-        }
+        :root { --bg: #050505; --panel: #111111; --accent: #3b82f6; --text: #e2e8f0; --danger: #ff3333; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        #chat { flex: 1; overflow-y: auto; padding: 25px; display: flex; flex-direction: column; gap: 12px; background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url("https://www.transparenttextures.com/patterns/dark-matter.png"); }
+        
+        /* Notificaciones de Sesión */
+        .date-sep { align-self: center; background: #222; font-size: 0.7rem; padding: 4px 12px; border-radius: 4px; margin: 10px 0; color: #aaa; font-weight: bold; }
+        .sys { align-self: center; font-size: 0.75rem; color: #666; margin: 5px 0; font-style: italic; }
+        
+        /* Burbujas de Mensaje */
+        .msg { padding: 10px 15px 25px 15px; border-radius: 8px; max-width: 65%; position: relative; min-width: 120px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid #222; }
+        .msg b { font-size: 0.75rem; color: var(--accent); display: block; margin-bottom: 5px; text-transform: uppercase; }
+        
+        /* AJUSTE: Más brillo a la hora */
+        .msg .time { font-size: 0.65rem; color: #999; position: absolute; bottom: 8px; right: 12px; font-weight: bold; text-shadow: 0 0 2px rgba(255,255,255,0.1); }
+        
+        .my { background: #161616; align-self: flex-end; border-right: 3px solid var(--accent); }
+        .other { background: #0f0f0f; align-self: flex-start; border-left: 3px solid #333; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
+        /* Barra de Entrada con Avión de Papel */
+        .input-area { background: #0a0a0a; padding: 15px 25px; display: flex; gap: 15px; border-top: 1px solid #111; align-items: center; }
+        input { flex: 1; padding: 12px 18px; background: #000; border: 1px solid #222; color: white; border-radius: 25px; outline: none; font-size: 0.95rem; }
+        input:focus { border-color: var(--accent); }
+        
+        /* Botones Icónicos con Brillo */
+        .icon-btn { width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; transition: 0.3s; }
+        
+        .btn-send { background: var(--accent); color: white; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        .btn-send:hover { background: #2563eb; transform: scale(1.1); box-shadow: 0 0 20px rgba(59, 130, 246, 0.7); }
+        
+        .btn-logout { background: #1a1a1a; color: var(--danger); border: 1px solid #300; }
+        .btn-logout:hover { background: var(--danger); color: white; transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 51, 51, 0.6); }
 
-        header {
-            background-color: var(--bg-panel);
-            padding: 15px;
-            text-align: center;
-            border-bottom: 2px solid var(--accent);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        #chat-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background-image: radial-gradient(#1e293b 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-        }
-
-        /* Estilo Burbujas */
-        .msg {
-            padding: 10px 14px;
-            border-radius: 18px;
-            max-width: 70%;
-            font-size: 0.95rem;
-            line-height: 1.4;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* Mis mensajes (Derecha) */
-        .my-msg {
-            background-color: var(--my-msg-color);
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-        }
-
-        /* Mensajes de otros (Izquierda) */
-        .other-msg {
-            background-color: var(--other-msg-color);
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
-
-        /* Mensajes de sistema (Centro) */
-        .sys-msg {
-            background-color: rgba(51, 65, 85, 0.6);
-            align-self: center;
-            font-size: 0.8rem;
-            color: #94a3b8;
-            border-radius: 10px;
-            max-width: 85%;
-            box-shadow: none;
-        }
-
-        .username {
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 3px;
-            color: #93c5fd;
-        }
-
-        .time {
-            font-size: 0.65rem;
-            opacity: 0.7;
-            margin-top: 4px;
-            align-self: flex-end;
-        }
-
-        /* Área de entrada */
-        .input-area {
-            background-color: var(--bg-panel);
-            padding: 20px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        input {
-            flex: 1;
-            padding: 12px 15px;
-            border-radius: 25px;
-            border: 1px solid #334155;
-            background-color: #0f172a;
-            color: white;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: var(--accent);
-        }
-
-        button {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #1d4ed8;
-            transform: scale(1.05);
-        }
-
-        /* Pantalla de Login */
-        #login-overlay {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-body);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .login-box {
-            background: var(--bg-panel);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid var(--accent);
-            width: 300px;
-        }
-
-        .login-box h2 { margin-top: 0; }
+        /* Login Simétrico */
+        #overlay { position: fixed; inset: 0; background: #000; display: flex; justify-content: center; align-items: center; z-index: 100; }
+        .login-box { background: #0a0a0a; padding: 45px; border-radius: 4px; text-align: center; width: 340px; border: 1px solid #1a1a1a; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+        .login-box input { width: 100%; box-sizing: border-box; margin-bottom: 15px; border-radius: 4px; padding: 12px; background: #000; border: 1px solid #222; color: white; }
+        .btn-login { width: 100%; background: #222; color: #aaa; padding: 12px; border-radius: 4px; border: 1px solid #333; cursor: pointer; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .btn-login:hover { background: #333; color: white; border-color: var(--accent); }
     </style>
 </head>
 <body>
-
-    <div id="login-overlay">
+    <div id="overlay">
         <div class="login-box">
-            <h2>🚀 PXL-Live</h2>
-            <p>Ingresa tu nombre para comenzar</p>
-            <input type="text" id="nameInput" placeholder="Nombre o alias..." style="width: 80%; margin-bottom: 20px;">
-            <br>
-            <button onclick="startChat()">Entrar al Chat</button>
+            <h2 style="color: var(--accent); letter-spacing: 3px; margin: 0 0 10px 0;">PXL-LIVE</h2>
+            <p style="color: #444; font-size: 0.8rem; margin-bottom: 30px;">ACCESO CORPORATIVO</p>
+            
+            <div id="g_id_onload" data-client_id="873753705182-ncku12ftmj9gi29l7q8du15trj3brb9j.apps.googleusercontent.com" data-callback="onGoogleLogin"></div>
+            <div class="g_id_signin" data-type="standard" data-width="340" data-theme="filled_black"></div>
+            
+            <p style="margin: 20px 0; color: #1a1a1a;">— ó —</p>
+            
+            <input type="text" id="name" placeholder="NOMBRE DE USUARIO">
+            <button class="btn-login" onclick="login()">INGRESAR</button>
         </div>
     </div>
 
-    <header>
-        <strong>🚀 PXL-Live Chat | Grupo PIXEL</strong>
-    </header>
-
-    <div id="chat-container"></div>
-
+    <div id="chat"></div>
     <div class="input-area">
-        <input type="text" id="msgInput" placeholder="Escribe un mensaje colaborativo..." onkeypress="if(event.key==='Enter') send()">
-        <button onclick="send()">Enviar</button>
+        <input type="text" id="minput" placeholder="Escribe un mensaje para el equipo..." onkeypress="if(event.key=='Enter') send()">
+        
+        <button class="icon-btn btn-send" onclick="send()" title="Enviar">➤</button>
+        <button class="icon-btn btn-logout" onclick="localStorage.clear(); location.reload();" title="Salir">🚪</button>
     </div>
 
     <script>
-        let socket;
-        let myName;
+        let ws, myUser, lastDateStr = "";
+        
+        window.onload = () => { if(localStorage.getItem('user')) { myUser = localStorage.getItem('user'); start(); } };
 
-        function startChat() {
-            const inputVal = document.getElementById('nameInput').value.trim();
-            myName = inputVal || "Usuario_" + Math.floor(Math.random() * 999);
+        function onGoogleLogin(res) { 
+            myUser = JSON.parse(atob(res.credential.split('.')[1])).name;
+            localStorage.setItem('user', myUser); 
+            start(); 
+        }
+
+        function login() { 
+            myUser = document.getElementById('name').value || "Invitado_" + Math.floor(Math.random()*999);
+            localStorage.setItem('user', myUser); 
+            start(); 
+        }
+
+        function formatHeaderDate(iso) {
+            const d = new Date(iso + 'T00:00:00'), now = new Date();
+            now.setHours(0,0,0,0);
+            const diff = Math.round((now - d) / 864e5);
+            if(diff === 0) return "Hoy";
+            if(diff === 1) return "Ayer";
+            return d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric' });
+        }
+
+        function start() {
+            document.getElementById('overlay').style.display = 'none';
+            ws = new WebSocket((window.location.protocol === "https:" ? "wss://" : "ws://") + window.location.host + "/ws/" + encodeURIComponent(myUser));
             
-            document.getElementById('login-overlay').style.display = 'none';
-            
-            // Conectar al WebSocket
-            socket = new WebSocket(`ws://localhost:8000/ws/${myName}`);
-            
-            socket.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                const chatContainer = document.getElementById('chat-container');
-                const div = document.createElement('div');
-                
-                if (data.type === 'sys') {
-                    div.className = 'msg sys-msg';
-                    div.innerHTML = `<span>${data.msg}</span> <span class="time">${data.time}</span>`;
-                } else if (data.user === myName) {
-                    div.className = 'msg my-msg';
-                    div.innerHTML = `<span>${data.msg}</span> <span class="time">${data.time}</span>`;
-                } else {
-                    div.className = 'msg other-msg';
-                    div.innerHTML = `<span class="username">${data.user}</span><span>${data.msg}</span> <span class="time">${data.time}</span>`;
+            ws.onmessage = (e) => {
+                const d = JSON.parse(e.data);
+                const chat = document.getElementById('chat');
+
+                if(d.date && d.date !== lastDateStr) {
+                    const sep = document.createElement('div');
+                    sep.className = 'date-sep';
+                    sep.innerText = formatHeaderDate(d.date);
+                    chat.appendChild(sep);
+                    lastDateStr = d.date;
                 }
-                
-                chatContainer.appendChild(div);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            };
 
-            socket.onclose = () => {
-                alert("Conexión perdida con el servidor.");
+                const div = document.createElement('div');
+                if(d.type === 'sys') {
+                    div.className = 'sys';
+                    div.innerText = d.msg;
+                } else {
+                    div.className = `msg ${d.user === myUser ? 'my' : 'other'}`;
+                    const n = d.user === myUser ? "" : `<b>${d.user}</b>`;
+                    div.innerHTML = `${n}<div>${d.msg}</div><div class="time">${d.time}</div>`;
+                }
+                chat.appendChild(div);
+                chat.scrollTop = chat.scrollHeight;
             };
         }
 
-        function send() {
-            const input = document.getElementById('msgInput');
-            if (input.value.trim() && socket) {
-                socket.send(input.value);
-                input.value = '';
-            }
+        function send() { 
+            const i = document.getElementById('minput');
+            if(i.value.trim() && ws?.readyState === 1) { ws.send(i.value); i.value = ""; }
         }
     </script>
 </body>
