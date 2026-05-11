@@ -50,7 +50,7 @@ El sistema utiliza un servicio de identidad externo mediante Google Login para a
 ## Gestión Colaborativa
 - GitHub
 - Trello
--zoom-met
+- zoom-meet
 ---
 
 #  Arquitectura del Sistema
