@@ -1,6 +1,6 @@
 # PXL-Live | Sistema de Chat Colaborativo en Tiempo Real
 
-## 📝 Descripción General
+##  Descripción General
 
 **PXL-Live** es una aplicación web SPA (*Single Page Application*) desarrollada para permitir la comunicación colaborativa en tiempo real entre múltiples usuarios mediante el protocolo **WebSocket**.
 
@@ -17,13 +17,13 @@ La aplicación permite:
 
 ---
 
-# 🎯 Objetivo del Proyecto
+#  Objetivo del Proyecto
 
 Desarrollar una funcionalidad básica de chat colaborativo en tiempo real entre múltiples usuarios utilizando exclusivamente **WebSocket** como mecanismo de comunicación persistente entre cliente y servidor.
 
 ---
 
-# 👁️ Visión del Sistema
+#  Visión del Sistema
 
 Construir un sistema colaborativo que permita a los empleados de una empresa comunicarse en tiempo real mediante una aplicación web SPA utilizando WebSockets para mensajería instantánea, administrado por una API interna y respaldado por una base de datos local.
 
@@ -31,7 +31,7 @@ El sistema utiliza autenticación mediante **Google Identity Services** para ide
 
 ---
 
-# 💻 Tecnologías Utilizadas
+#  Tecnologías Utilizadas
 
 | Componente | Tecnología |
 |---|---|
@@ -46,11 +46,11 @@ El sistema utiliza autenticación mediante **Google Identity Services** para ide
 
 ---
 
-# 🏗️ Arquitectura del Sistema
+#  Arquitectura del Sistema
 
 El sistema utiliza una arquitectura **Cliente - Servidor**.
 
-## 🖥️ Cliente (Frontend)
+##  Cliente (Frontend)
 
 La interfaz web SPA desarrollada en HTML, CSS y JavaScript permite:
 
@@ -62,7 +62,7 @@ La interfaz web SPA desarrollada en HTML, CSS y JavaScript permite:
 
 ---
 
-## ⚙️ Servidor (Backend)
+##  Servidor (Backend)
 
 El backend desarrollado con FastAPI:
 
@@ -74,7 +74,7 @@ El backend desarrollado con FastAPI:
 
 ---
 
-## 🗄️ Base de Datos
+##  Base de Datos
 
 SQLite almacena:
 
@@ -85,7 +85,7 @@ SQLite almacena:
 
 ---
 
-# 📋 Requerimientos Funcionales
+#  Requerimientos Funcionales
 
 | Código | Requerimiento |
 |---|---|
@@ -102,7 +102,7 @@ SQLite almacena:
 
 ---
 
-# 📌 Requerimientos No Funcionales
+#  Requerimientos No Funcionales
 
 | Código | Requerimiento |
 |---|---|
@@ -115,13 +115,13 @@ SQLite almacena:
 
 ---
 
-# 📖 Historias de Usuario Implementadas
+#  Historias de Usuario Implementadas
 
 ---
 
 ## HU01 — Configuración del Entorno
 
-### 📌 Descripción
+###  Descripción
 
 Como desarrollador, quiero configurar el entorno de trabajo y Git para asegurar la colaboración.
 
@@ -136,7 +136,7 @@ Como desarrollador, quiero configurar el entorno de trabajo y Git para asegurar 
 
 ## HU02 — Servidor WebSocket Base
 
-### 📌 Descripción
+###  Descripción
 
 Como desarrollador, quiero un servidor que gestione múltiples conexiones bidireccionales.
 
@@ -152,7 +152,7 @@ Como desarrollador, quiero un servidor que gestione múltiples conexiones bidire
 
 ## HU03 — Interfaz de Usuario (SPA)
 
-### 📌 Descripción
+###  Descripción
 
 Como usuario, quiero una interfaz web limpia para enviar y recibir mensajes.
 
@@ -169,7 +169,7 @@ Como usuario, quiero una interfaz web limpia para enviar y recibir mensajes.
 
 ## HU04 — Identificación de Usuario
 
-### 📌 Descripción
+###  Descripción
 
 Como usuario, quiero identificarme mediante Google o un nombre temporal.
 
@@ -184,7 +184,7 @@ Como usuario, quiero identificarme mediante Google o un nombre temporal.
 
 ## HU05 — Notificaciones de Sesión
 
-### 📌 Descripción
+###  Descripción
 
 Como usuario, quiero saber quién entra o sale del chat.
 
@@ -198,7 +198,7 @@ Como usuario, quiero saber quién entra o sale del chat.
 
 ## HU06 — Persistencia e Historial
 
-### 📌 Descripción
+###  Descripción
 
 Como usuario, quiero ver mensajes antiguos al conectarme.
 
@@ -212,7 +212,7 @@ Como usuario, quiero ver mensajes antiguos al conectarme.
 
 ## HU07 — Documentación y Cierre
 
-### 📌 Descripción
+###  Descripción
 
 Como docente, quiero ejecutar el proyecto fácilmente.
 
@@ -225,7 +225,7 @@ Como docente, quiero ejecutar el proyecto fácilmente.
 
 ---
 
-# 🚀 Guía de Instalación y Ejecución
+#  Guía de Instalación y Ejecución
 
 ## 1️⃣ Clonar el repositorio
 
@@ -262,7 +262,7 @@ http://127.0.0.1:8000/frontend/index.html
 
 ---
 
-# 🌐 Acceso Externo con Ngrok
+#  Acceso Externo con Ngrok
 
 Si deseas permitir acceso desde Internet:
 
@@ -274,7 +274,7 @@ Luego actualiza la URL en la configuración de Google Cloud Console.
 
 ---
 
-# 🏗️ Estructura del Proyecto
+#  Estructura del Proyecto
 
 ```bash
 PXL-LIVE-CHAT/
@@ -293,7 +293,7 @@ PXL-LIVE-CHAT/
 
 ---
 
-# 🔒 Características Principales
+#  Características Principales
 
 - Comunicación en tiempo real con WebSocket
 - Arquitectura SPA
@@ -306,7 +306,7 @@ PXL-LIVE-CHAT/
 
 ---
 
-# 📚 Aprendizajes del Proyecto
+#  Aprendizajes del Proyecto
 
 Durante el desarrollo del sistema se aplicaron conocimientos sobre:
 
@@ -321,11 +321,11 @@ Durante el desarrollo del sistema se aplicaron conocimientos sobre:
 
 ---
 
-# 👨‍💻 Grupo de Desarrollo — PIXEL
+#  Grupo de Desarrollo — PIXEL
 
 Proyecto desarrollado por el grupo **PIXEL** para la materia de **Sistemas Colaborativos**.
 
-## 👥 Integrantes
+##  Integrantes
 
 - Valerio Yucra Coria
 - Lorena Camacho Berrios
@@ -341,7 +341,7 @@ Materia: Sistemas Colaborativos
 
 ---
 
-# 📅 Gestión del Proyecto
+#  Gestión del Proyecto
 
 - GitHub para control de versiones
 - Trello para gestión de tareas
@@ -349,6 +349,6 @@ Materia: Sistemas Colaborativos
 
 ---
 
-# 📄 Licencia
+#  Licencia
 
 Proyecto desarrollado con fines académicos y educativos.
