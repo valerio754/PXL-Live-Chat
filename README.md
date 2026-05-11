@@ -2,7 +2,7 @@
 
 ##  Descripción General
 
-**PXL-Live** es una aplicación web SPA (*Single Page Application*) desarrollada para permitir la comunicación colaborativa en tiempo real entre múltiples usuarios mediante el protocolo **WebSocket**.
+**PXL-Live** es una aplicación web SPA desarrollada para permitir la comunicación colaborativa en tiempo real entre múltiples usuarios mediante el protocolo **WebSocket**.
 
 El sistema fue creado como parte de una actividad académica enfocada en comprender e implementar comunicación bidireccional persistente entre cliente y servidor, evitando técnicas tradicionales como polling o long-polling.
 
@@ -336,8 +336,9 @@ Proyecto desarrollado por el grupo **PIXEL** para la materia de **Sistemas Colab
 ---
 
 **Universidad Mayor de San Simón (UMSS)**
-Carrera de Ingeniería de Sistemas
-Materia: Sistemas Colaborativos
+
+- Carrera de Ingeniería de Sistemas
+- Sistemas Colaborativos
 
 ---
 
