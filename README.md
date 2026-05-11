@@ -2,23 +2,24 @@
 
 ##  Descripción General
 
-PXL-Live es una aplicación web SPA (Single Page Application) desarrollada para permitir la comunicación colaborativa en tiempo real entre múltiples usuarios mediante el protocolo WebSocket.
+**PXL-Live** es una aplicación web SPA  desarrollada para permitir la comunicación colaborativa en tiempo real entre múltiples usuarios mediante el protocolo **WebSocket**.
 
-El sistema fue desarrollado como parte de la actividad académica “Chat colaborativo en tiempo real con WebSocket”, cuyo objetivo principal es comprender e implementar comunicación bidireccional persistente entre cliente y servidor evitando técnicas tradicionales como polling o long-polling.
+El sistema fue creado como parte de una actividad académica enfocada en comprender e implementar comunicación bidireccional persistente entre cliente y servidor, evitando técnicas tradicionales como polling o long-polling.
 
 La aplicación permite:
-- Conexión simultánea de múltiples usuarios
-- Mensajería instantánea
-- Persistencia de historial
-- Autenticación mediante Google
-- Notificaciones de conexión y desconexión
-- Interfaz web moderna y simple
+
+- ✅ Conexión simultánea de múltiples usuarios
+- ✅ Mensajería instantánea en tiempo real
+- ✅ Persistencia de historial de mensajes
+- ✅ Autenticación mediante Google Login
+- ✅ Notificaciones de conexión y desconexión
+- ✅ Interfaz moderna, responsiva y simple
 
 ---
 
 #  Objetivo del Proyecto
 
-Desarrollar una funcionalidad básica de chat colaborativo en tiempo real entre múltiples usuarios utilizando exclusivamente WebSocket como mecanismo de comunicación persistente entre cliente y servidor.
+Desarrollar una funcionalidad básica de chat colaborativo en tiempo real entre múltiples usuarios utilizando exclusivamente **WebSocket** como mecanismo de comunicación persistente entre cliente y servidor.
 
 ---
 
@@ -26,57 +27,61 @@ Desarrollar una funcionalidad básica de chat colaborativo en tiempo real entre 
 
 Construir un sistema colaborativo que permita a los empleados de una empresa comunicarse en tiempo real mediante una aplicación web SPA utilizando WebSockets para mensajería instantánea, administrado por una API interna y respaldado por una base de datos local.
 
-El sistema utiliza un servicio de identidad externo mediante Google Login para autenticación de usuarios.
+El sistema utiliza autenticación mediante **Google Identity Services** para identificar usuarios.
 
 ---
 
 #  Tecnologías Utilizadas
 
-## Backend
-- Python 3
-- FastAPI
-- Uvicorn
-- WebSocket
-- SQLite
-
-## Frontend
-- HTML5
-- CSS3
-- JavaScript Vanilla
-
-## Autenticación
-- Google Identity Services
-
-## Gestión Colaborativa
-- GitHub
-- Trello
+| Componente | Tecnología |
+|---|---|
+| **Backend** | Python 3, FastAPI, Uvicorn |
+| **Frontend** | HTML5, CSS3, JavaScript Vanilla |
+| **Base de Datos** | SQLite |
+| **Comunicación** | WebSocket |
+| **Autenticación** | Google Identity Services |
+| **Control de Versiones** | Git & GitHub |
+| **Gestión Colaborativa** | Trello |
+| **Exposición Pública** | Ngrok |
 
 ---
 
 #  Arquitectura del Sistema
 
-El sistema utiliza una arquitectura Cliente-Servidor.
+El sistema utiliza una arquitectura **Cliente - Servidor**.
 
-## Cliente
+##  Cliente (Frontend)
+
 La interfaz web SPA desarrollada en HTML, CSS y JavaScript permite:
+
 - Enviar mensajes
 - Recibir mensajes en tiempo real
 - Mostrar historial
 - Gestionar autenticación
+- Diferenciar visualmente usuarios
 
-## Servidor
+---
+
+##  Servidor (Backend)
+
 El backend desarrollado con FastAPI:
+
 - Gestiona conexiones WebSocket
 - Administra múltiples usuarios simultáneamente
 - Realiza broadcast de mensajes
 - Gestiona persistencia de datos
+- Controla conexiones y desconexiones
 
-## Base de Datos
+---
+
+##  Base de Datos
+
 SQLite almacena:
+
 - Usuario
 - Mensaje
-- Hora
 - Fecha
+- Hora
 
 ---
 
@@ -116,10 +121,12 @@ SQLite almacena:
 
 ## HU01 — Configuración del Entorno
 
-### Descripción
+###  Descripción
+
 Como desarrollador, quiero configurar el entorno de trabajo y Git para asegurar la colaboración.
 
-### Implementación
+###  Implementación
+
 - Repositorio GitHub creado
 - Organización frontend/backend
 - Archivo `.gitignore`
@@ -129,10 +136,12 @@ Como desarrollador, quiero configurar el entorno de trabajo y Git para asegurar 
 
 ## HU02 — Servidor WebSocket Base
 
-### Descripción
+###  Descripción
+
 Como desarrollador, quiero un servidor que gestione múltiples conexiones bidireccionales.
 
-### Implementación
+###  Implementación
+
 - Endpoint `/ws/{user}`
 - Clase `ConnectionManager`
 - Gestión de conexiones activas
@@ -143,10 +152,12 @@ Como desarrollador, quiero un servidor que gestione múltiples conexiones bidire
 
 ## HU03 — Interfaz de Usuario (SPA)
 
-### Descripción
+###  Descripción
+
 Como usuario, quiero una interfaz web limpia para enviar y recibir mensajes.
 
-### Implementación
+###  Implementación
+
 - Diseño oscuro moderno
 - SPA responsiva
 - Auto-scroll
@@ -158,10 +169,12 @@ Como usuario, quiero una interfaz web limpia para enviar y recibir mensajes.
 
 ## HU04 — Identificación de Usuario
 
-### Descripción
+###  Descripción
+
 Como usuario, quiero identificarme mediante Google o un nombre temporal.
 
-### Implementación
+###  Implementación
+
 - Integración Google Login
 - Login manual
 - Generación automática de `Invitado_XXX`
@@ -171,11 +184,13 @@ Como usuario, quiero identificarme mediante Google o un nombre temporal.
 
 ## HU05 — Notificaciones de Sesión
 
-### Descripción
+###  Descripción
+
 Como usuario, quiero saber quién entra o sale del chat.
 
-### Implementación
-- Mensajes de sistema
+###  Implementación
+
+- Mensajes del sistema
 - Notificaciones de conexión
 - Notificaciones de desconexión
 
@@ -183,10 +198,12 @@ Como usuario, quiero saber quién entra o sale del chat.
 
 ## HU06 — Persistencia e Historial
 
-### Descripción
+###  Descripción
+
 Como usuario, quiero ver mensajes antiguos al conectarme.
 
-### Implementación
+###  Implementación
+
 - Base de datos SQLite
 - Tabla `messages`
 - Recuperación automática del historial
@@ -195,14 +212,65 @@ Como usuario, quiero ver mensajes antiguos al conectarme.
 
 ## HU07 — Documentación y Cierre
 
-### Descripción
+###  Descripción
+
 Como docente, quiero ejecutar el proyecto fácilmente.
 
-### Implementación
+###  Implementación
+
 - README detallado
 - Código estructurado
 - Evidencias del sistema
 - Documentación de instalación
+
+---
+
+#  Guía de Instalación y Ejecución
+
+## 1️⃣ Clonar el repositorio
+
+```bash
+git clone https://github.com/valerio754/PXL-Live-Chat.git
+cd PXL-Live-Chat
+```
+
+---
+
+## 2️⃣ Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 3️⃣ Ejecutar el servidor
+
+```bash
+python -m uvicorn backend.main:app --reload
+```
+
+---
+
+## 4️⃣ Abrir la aplicación
+
+Abre tu navegador en:
+
+```bash
+http://127.0.0.1:8000/frontend/index.html
+```
+
+---
+
+#  Acceso Externo con Ngrok
+
+Si deseas permitir acceso desde Internet:
+
+```bash
+ngrok http 8000
+```
+
+Luego actualiza la URL en la configuración de Google Cloud Console.
 
 ---
 
@@ -212,15 +280,74 @@ Como docente, quiero ejecutar el proyecto fácilmente.
 PXL-LIVE-CHAT/
 │
 ├── backend/
-│   └── main.py
+│   └── main.py              # Servidor FastAPI y WebSocket
 │
 ├── frontend/
-│   └── index.html
+│   └── index.html           # Interfaz SPA
 │
-├── pxl_chat.db
-├── requirements.txt
-├── README.md
-└── .gitignore
-1. **Clonar el repositorio:**
-   ```bash
-   git clone [https://github.com/valerio754/PXL-Live-Chat.git](https://github.com/valerio754/PXL-Live-Chat.git)
+├── pxl_chat.db              # Base de datos SQLite
+├── requirements.txt         # Dependencias del proyecto
+├── README.md                # Documentación principal
+└── .gitignore               # Archivos ignorados por Git
+```
+
+---
+
+#  Características Principales
+
+- Comunicación en tiempo real con WebSocket
+- Arquitectura SPA
+- Persistencia local con SQLite
+- Sistema multiusuario
+- Historial automático
+- Login con Google
+- Diseño moderno responsive
+- Gestión de conexiones activas
+
+---
+
+#  Aprendizajes del Proyecto
+
+Durante el desarrollo del sistema se aplicaron conocimientos sobre:
+
+- WebSockets
+- FastAPI
+- Manejo de conexiones concurrentes
+- Arquitectura cliente-servidor
+- Persistencia de datos
+- SPA con JavaScript Vanilla
+- Gestión de sesiones
+- Integración con servicios externos
+
+---
+#  Grupo de Desarrollo — PIXEL
+
+Proyecto desarrollado por el grupo **PIXEL** para la materia de **Sistemas Colaborativos**.
+
+##  Integrantes
+
+- Valerio Yucra Coria
+- Lorena Camacho Berrios
+- Elias Fabian Tenorio Claros
+- Bruce Carlos Alvarez Coronado
+- Aracely Alcon Fuentes
+
+---
+
+**Universidad Mayor de San Simón (UMSS)**  
+Carrera de Ingeniería de Sistemas  
+Materia: Sistemas Colaborativos
+
+---
+
+#  Gestión del Proyecto
+
+- GitHub para control de versiones
+- Trello para gestión de tareas
+- Metodología incremental basada en Historias de Usuario
+
+---
+
+#  Licencia
+
+Proyecto desarrollado con fines académicos y educativos.
