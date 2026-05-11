@@ -8,12 +8,12 @@ El sistema fue creado como parte de una actividad académica enfocada en compren
 
 La aplicación permite:
 
-- ✅ Conexión simultánea de múltiples usuarios
-- ✅ Mensajería instantánea en tiempo real
-- ✅ Persistencia de historial de mensajes
-- ✅ Autenticación mediante Google Login
-- ✅ Notificaciones de conexión y desconexión
-- ✅ Interfaz moderna, responsiva y simple
+-  Conexión simultánea de múltiples usuarios
+-  Mensajería instantánea en tiempo real
+-  Persistencia de historial de mensajes
+-  Autenticación mediante Google Login
+-  Notificaciones de conexión y desconexión
+-  Interfaz moderna, responsiva y simple
 
 ---
 
@@ -125,7 +125,7 @@ SQLite almacena:
 
 Como desarrollador, quiero configurar el entorno de trabajo y Git para asegurar la colaboración.
 
-### ✅ Implementación
+###  Implementación
 
 - Repositorio GitHub creado
 - Organización frontend/backend
@@ -140,7 +140,7 @@ Como desarrollador, quiero configurar el entorno de trabajo y Git para asegurar 
 
 Como desarrollador, quiero un servidor que gestione múltiples conexiones bidireccionales.
 
-### ✅ Implementación
+###  Implementación
 
 - Endpoint `/ws/{user}`
 - Clase `ConnectionManager`
@@ -156,7 +156,7 @@ Como desarrollador, quiero un servidor que gestione múltiples conexiones bidire
 
 Como usuario, quiero una interfaz web limpia para enviar y recibir mensajes.
 
-### ✅ Implementación
+###  Implementación
 
 - Diseño oscuro moderno
 - SPA responsiva
@@ -173,7 +173,7 @@ Como usuario, quiero una interfaz web limpia para enviar y recibir mensajes.
 
 Como usuario, quiero identificarme mediante Google o un nombre temporal.
 
-### ✅ Implementación
+###  Implementación
 
 - Integración Google Login
 - Login manual
@@ -188,7 +188,7 @@ Como usuario, quiero identificarme mediante Google o un nombre temporal.
 
 Como usuario, quiero saber quién entra o sale del chat.
 
-### ✅ Implementación
+###  Implementación
 
 - Mensajes del sistema
 - Notificaciones de conexión
@@ -202,7 +202,7 @@ Como usuario, quiero saber quién entra o sale del chat.
 
 Como usuario, quiero ver mensajes antiguos al conectarme.
 
-### ✅ Implementación
+###  Implementación
 
 - Base de datos SQLite
 - Tabla `messages`
@@ -216,7 +216,7 @@ Como usuario, quiero ver mensajes antiguos al conectarme.
 
 Como docente, quiero ejecutar el proyecto fácilmente.
 
-### ✅ Implementación
+###  Implementación
 
 - README detallado
 - Código estructurado
@@ -227,7 +227,7 @@ Como docente, quiero ejecutar el proyecto fácilmente.
 
 #  Guía de Instalación y Ejecución
 
-## 1️⃣ Clonar el repositorio
+## 1️ Clonar el repositorio
 
 ```bash
 git clone https://github.com/valerio754/PXL-Live-Chat.git
@@ -236,7 +236,7 @@ cd PXL-Live-Chat
 
 ---
 
-## 2️⃣ Instalar dependencias
+## 2️ Instalar dependencias
 
 ```bash
 pip install -r requirements.txt
@@ -244,7 +244,7 @@ pip install -r requirements.txt
 
 ---
 
-## 3️⃣ Ejecutar el servidor
+## 3️ Ejecutar el servidor
 
 ```bash
 python -m uvicorn backend.main:app --reload
@@ -252,7 +252,7 @@ python -m uvicorn backend.main:app --reload
 
 ---
 
-## 4️⃣ Abrir la aplicación
+## 4️ Abrir la aplicación
 
 Abre tu navegador en:
 
