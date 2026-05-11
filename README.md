@@ -46,11 +46,11 @@ El sistema utiliza un servicio de identidad externo mediante Google Login para a
 
 ## Autenticación
 - Google Identity Services
-
+- invitado(usuairo_123)
 ## Gestión Colaborativa
 - GitHub
 - Trello
-
+-zoom-met
 ---
 
 #  Arquitectura del Sistema
