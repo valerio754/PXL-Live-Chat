@@ -9,7 +9,7 @@ app = FastAPI()
 if os.path.exists("frontend"):
     app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
-# Base de Datos Interna
+# Bd Interna
 def init_db():
     conn = sqlite3.connect("pxl_chat.db")
     conn.execute("CREATE TABLE IF NOT EXISTS messages (username TEXT, content TEXT, timestamp TEXT, date TEXT)")
