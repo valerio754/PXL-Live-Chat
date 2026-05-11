@@ -335,7 +335,7 @@ Proyecto desarrollado por el grupo **PIXEL** para la materia de **Sistemas Colab
 
 ---
 
-**Universidad Mayor de San Simón (UMSS)**||||||||||||||||||||||||||||||
+**Universidad Mayor de San Simón (UMSS)**
 Carrera de Ingeniería de Sistemas
 Materia: Sistemas Colaborativos
 
