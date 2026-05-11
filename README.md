@@ -328,9 +328,9 @@ Proyecto desarrollado por el grupo **PIXEL** para la materia de **Sistemas Colab
 ##  Integrantes
 
 - Aracely Alcon Fuentes              (Dev)
-- Bruce Carlos Alvarez Coronado      (Dev)
+- Bruce Carlos Alvarez Coronado      (PO)
 - Lorena Camacho Berrios             (Dev)
-- Elias Fabian Tenorio Claros        (PO)
+- Elias Fabian Tenorio Claros        (Dev)
 - Valerio Yucra Coria                (SM)
 
 ---
